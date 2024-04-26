@@ -7,20 +7,38 @@ public class MeuConjuntoDinamico<T extends Comparable<T>> implements ConjuntoDin
 
 	private List<T> conjunto;
 
+	/**
+	 * Construtor padrão que inicializa o conjunto como uma lista vazia.
+	 */
 	public MeuConjuntoDinamico() {
 		conjunto = new ArrayList<>();
 	}
 
+	/**
+	 * Retorna o número de elementos no conjunto.
+	 */
 	@Override
 	public int tamanho() {
 		return conjunto.size();
 	}
 
+	/**
+	 * Insere um elemento no conjunto.
+	 *
+	 * @param elemento o elemento a ser inserido no conjunto.
+	 */
 	@Override
 	public void inserir(T elemento) {
 		conjunto.add(elemento);
 	}
 
+	/**
+	 * Remove um elemento do conjunto.
+	 *
+	 * @param elemento o elemento a ser removido do conjunto.
+	 * @return o elemento removido do conjunto.
+	 * @throws Exception se o elemento não estiver presente no conjunto.
+	 */
 	@Override
 	public T remover(T elemento) throws Exception {
 		if (conjunto.contains(elemento)) {
@@ -31,6 +49,13 @@ public class MeuConjuntoDinamico<T extends Comparable<T>> implements ConjuntoDin
 		}
 	}
 
+	/**
+	 * Busca por um elemento no conjunto.
+	 *
+	 * @param elemento o elemento a ser buscado no conjunto.
+	 * @return o elemento buscado.
+	 * @throws Exception se o elemento não estiver presente no conjunto.
+	 */
 	@Override
 	public T buscar(T elemento) throws Exception {
 		if (conjunto.contains(elemento)) {
@@ -40,6 +65,12 @@ public class MeuConjuntoDinamico<T extends Comparable<T>> implements ConjuntoDin
 		}
 	}
 
+	/**
+	 * Retorna o elemento mínimo presente no conjunto.
+	 *
+	 * @return o elemento mínimo no conjunto.
+	 * @throws Exception se o conjunto estiver vazio.
+	 */
 	@Override
 	public T minimum() throws Exception {
 		if (conjunto.isEmpty()) {
@@ -54,6 +85,12 @@ public class MeuConjuntoDinamico<T extends Comparable<T>> implements ConjuntoDin
 		return min;
 	}
 
+	/**
+	 * Retorna o elemento máximo presente no conjunto.
+	 *
+	 * @return o elemento máximo no conjunto.
+	 * @throws Exception se o conjunto estiver vazio.
+	 */
 	@Override
 	public T maximum() throws Exception {
 		if (conjunto.isEmpty()) {
@@ -68,6 +105,13 @@ public class MeuConjuntoDinamico<T extends Comparable<T>> implements ConjuntoDin
 		return max;
 	}
 
+	/**
+	 * Retorna o sucessor de um elemento no conjunto.
+	 *
+	 * @param elemento o elemento cujo sucessor será procurado.
+	 * @return o sucessor do elemento especificado.
+	 * @throws Exception se o conjunto estiver vazio.
+	 */
 	@Override
 	public T sucessor(T elemento) throws Exception {
 		if (conjunto.isEmpty()) {
@@ -82,6 +126,13 @@ public class MeuConjuntoDinamico<T extends Comparable<T>> implements ConjuntoDin
 		return sucessor;
 	}
 
+	/**
+	 * Retorna o predecessor de um elemento no conjunto.
+	 *
+	 * @param elemento o elemento cujo predecessor será procurado.
+	 * @return o predecessor do elemento especificado.
+	 * @throws Exception se o conjunto estiver vazio.
+	 */
 	@Override
 	public T predecessor(T elemento) throws Exception {
 		if (conjunto.isEmpty()) {
