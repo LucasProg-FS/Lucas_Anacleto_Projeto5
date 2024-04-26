@@ -8,10 +8,10 @@ package tad.fila;
  */
 public class MinhaFila implements FilaIF<Integer> {
 
-	private int tamanho = 10;
-	private int cauda = 1;
+	private int tamanho;
+	private int cauda = 0;
 	private int cabeca = 0;
-	private Integer[] meusDados = null;
+	private Integer[] meusDados;
 
 	public MinhaFila(int tamanhoInicial) {
 		tamanho = tamanhoInicial;
@@ -19,7 +19,7 @@ public class MinhaFila implements FilaIF<Integer> {
 	}
 
 	public MinhaFila() {
-		meusDados = new Integer[tamanho];
+		this(10); // Tamanho padrão de 10 se não for especificado
 	}
 
 	@Override
@@ -27,34 +27,45 @@ public class MinhaFila implements FilaIF<Integer> {
 		if (isFull()) {
 			throw new FilaCheiaException();
 		}
-		cauda = (cauda + 1) % tamanho;
 		meusDados[cauda] = item;
+		cauda = (cauda + 1) % tamanho; // Avança a cauda e aplica circularidade
 	}
 
-
 	@Override
-	public Integer desenfileirar() {
-		throw new UnsupportedOperationException("Implementar");
+	public Integer desenfileirar() throws FilaVaziaException {
+		if (isEmpty()) {
+			throw new FilaVaziaException("A fila está vazia");
+		}
+		Integer item = meusDados[cabeca];
+		meusDados[cabeca] = null; // Remove o item da fila
+		cabeca = (cabeca + 1) % tamanho; // Avança a cabeça e aplica circularidade
+		return item;
 	}
 
 	@Override
 	public Integer verificarCauda() {
-		throw new UnsupportedOperationException("Implementar");
+		if (isEmpty()) {
+			return null;
+		}
+		return meusDados[(cauda - 1 + tamanho) % tamanho];
 	}
 
 	@Override
 	public Integer verificarCabeca() {
-		throw new UnsupportedOperationException("Implementar");
+		if (isEmpty()) {
+			return null;
+		}
+		return meusDados[cabeca];
 	}
 
 	@Override
 	public boolean isEmpty() {
-		throw new UnsupportedOperationException("Implementar");
+		return cabeca == cauda;
 	}
 
 	@Override
 	public boolean isFull() {
-		throw new UnsupportedOperationException("Implementar");
+		return (cauda + 1) % tamanho == cabeca;
 	}
-
 }
+

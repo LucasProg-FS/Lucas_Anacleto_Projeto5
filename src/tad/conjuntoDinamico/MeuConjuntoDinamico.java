@@ -1,59 +1,98 @@
 package tad.conjuntoDinamico;
 
-public class MeuConjuntoDinamico implements ConjuntoDinamicoIF<Integer>{
+import java.util.ArrayList;
+import java.util.List;
 
-	
-	private Integer[] meusDados = null;
-	private int posInsercao = 0;
-	
-	@Override
-	public void inserir(Integer item) {
-		throw new UnsupportedOperationException("Implementar");
-		
-	}
-	
-	private Integer[] aumentarArray() {
-		// criar um array maior (arrayMaior)
-			// Qual é a taxa de aumento desse array?
-		// copiar os dados de meusDados (array cheio)
-		// colar os dados para o novo array (arrayMaior)
-		return null;
-	}
+public class MeuConjuntoDinamico<T extends Comparable<T>> implements ConjuntoDinamicoIF<T> {
 
-	@Override
-	public Integer remover(Integer item) {
-		throw new UnsupportedOperationException("Implementar");
-		
-	}
+	private List<T> conjunto;
 
-	@Override
-	public Integer predecessor(Integer item) {
-		throw new UnsupportedOperationException("Implementar");
-	}
-
-	@Override
-	public Integer sucessor(Integer item) {
-		throw new UnsupportedOperationException("Implementar");
+	public MeuConjuntoDinamico() {
+		conjunto = new ArrayList<>();
 	}
 
 	@Override
 	public int tamanho() {
-		throw new UnsupportedOperationException("Implementar");
+		return conjunto.size();
 	}
 
 	@Override
-	public Integer buscar(Integer item) {
-		throw new UnsupportedOperationException("Implementar");
+	public void inserir(T elemento) {
+		conjunto.add(elemento);
 	}
 
 	@Override
-	public Integer minimum() {
-		throw new UnsupportedOperationException("Implementar");
+	public T remover(T elemento) throws Exception {
+		if (conjunto.contains(elemento)) {
+			conjunto.remove(elemento);
+			return elemento;
+		} else {
+			throw new Exception("Elemento não encontrado no conjunto");
+		}
 	}
 
 	@Override
-	public Integer maximum() {
-		throw new UnsupportedOperationException("Implementar");
+	public T buscar(T elemento) throws Exception {
+		if (conjunto.contains(elemento)) {
+			return elemento;
+		} else {
+			throw new Exception("Elemento não encontrado no conjunto");
+		}
 	}
 
+	@Override
+	public T minimum() throws Exception {
+		if (conjunto.isEmpty()) {
+			throw new Exception("Conjunto vazio");
+		}
+		T min = conjunto.get(0);
+		for (T elemento : conjunto) {
+			if (elemento.compareTo(min) < 0) {
+				min = elemento;
+			}
+		}
+		return min;
+	}
+
+	@Override
+	public T maximum() throws Exception {
+		if (conjunto.isEmpty()) {
+			throw new Exception("Conjunto vazio");
+		}
+		T max = conjunto.get(0);
+		for (T elemento : conjunto) {
+			if (elemento.compareTo(max) > 0) {
+				max = elemento;
+			}
+		}
+		return max;
+	}
+
+	@Override
+	public T sucessor(T elemento) throws Exception {
+		if (conjunto.isEmpty()) {
+			throw new Exception("Conjunto vazio");
+		}
+		T sucessor = null;
+		for (T e : conjunto) {
+			if (e.compareTo(elemento) > 0 && (sucessor == null || e.compareTo(sucessor) < 0)) {
+				sucessor = e;
+			}
+		}
+		return sucessor;
+	}
+
+	@Override
+	public T predecessor(T elemento) throws Exception {
+		if (conjunto.isEmpty()) {
+			throw new Exception("Conjunto vazio");
+		}
+		T predecessor = null;
+		for (T e : conjunto) {
+			if (e.compareTo(elemento) < 0 && (predecessor == null || e.compareTo(predecessor) > 0)) {
+				predecessor = e;
+			}
+		}
+		return predecessor;
+	}
 }

@@ -8,7 +8,7 @@ public interface FilaIF<E> {
 	
 	public E verificarCauda();
 	
-	public E verificarCabeca()  ;
+	public E verificarCabeca();
 	
 	public boolean isEmpty();
 	

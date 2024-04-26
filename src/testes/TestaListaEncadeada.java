@@ -23,7 +23,7 @@ public class TestaListaEncadeada {
 	
 	@BeforeEach
 	public void inicializar() {
-		listaEnc = new ListaEncadeadaImpl<Integer>();
+		listaEnc = (ListaEncadeadaIF<Integer>) new ListaEncadeadaImpl<Integer>();
 	}
 	
 	@Test
